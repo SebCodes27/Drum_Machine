@@ -8,9 +8,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <script>
+        let instruments = {
+            q: 'Heater 1',
+            w: 'Heater 2',
+            e: 'Heater 3',
+            a: 'Heater 4',
+            s: 'Clap',
+            d: 'Open-HH',
+            z: 'Kick-n\'-Hat',
+            x: 'Kick',
+            c: 'Closed-HH'
+        };
+        
         function audioFunction(letter) {
             let x = document.getElementById(letter);
-            console.log(x);
             x.play();
         };
 
@@ -18,72 +29,86 @@
             let key = event.key;
             let child = document.getElementById(key);
             let parent = child.closest('.drum-pad');
-            console.log(parent);
+            parent.classList.add('active');
             parent.click();
-            
-            
-            
-        })
+        });
+
+        window.addEventListener('keyup', function(event) {
+            let parent = document.getElementById(event.key).closest('.drum-pad');
+            parent.classList.remove('active');
+        });
+
+        function displayText(letter) {
+            document.getElementById('text-value').innerHTML = instruments[letter];
+        }
+
+
+
     </script>
     <body>
         <main>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-2"></div>
-                    <div id="drum-machine" class="col-xs-8 bg-primary">
+                    <div id="drum-machine" class="col-xs-4 bg-primary">
                         <div id="display" class="container">
                             <div class="btn-group btn-group-justified btn-group-lg">
-                                <a id="q-btn" href="#" onclick="audioFunction('q')" class="btn btn-default drum-pad">
+                                <a id="q-btn" href="#" onclick="audioFunction('q'); displayText('q')" class="btn btn-default drum-pad">
                                     <audio id="q">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" type="audio/mp3">
                                     </audio>
                                     Q</a>
-                                <a href="#" onclick="audioFunction('w')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('w'); displayText('w')" class="btn btn-default drum-pad">
                                     <audio id="w">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3" type="audio/mp3">
                                     </audio>
                                     W</a>
-                                <a href="#" onclick="audioFunction('e')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('e'); displayText('e')" class="btn btn-default drum-pad">
                                     <audio id="e">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3" type="audio/mp3">
                                     </audio>
                                     E</a>
                             </div>
                             <div class="btn-group btn-group-justified btn-group-lg">
-                                <a href="#" onclick="audioFunction('a')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('a'); displayText('a')" class="btn btn-default drum-pad">
                                     <audio id="a">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" type="audio/mp3">
                                     </audio>
                                     A</a>
-                                <a href="#" onclick="audioFunction('s')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('s'); displayText('s')" class="btn btn-default drum-pad">
                                     <audio id="s">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3" type="audio/mp3">
                                     </audio>
                                     S</a>
-                                <a href="#" onclick="audioFunction('d')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('d'); displayText('d')" class="btn btn-default drum-pad">
                                     <audio id="d">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" type="audio/mp3">
                                     </audio>
                                     D</a>
                             </div>
                             <div class="btn-group btn-group-justified btn-group-lg">
-                                <a href="#" onclick="audioFunction('z')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('z'); displayText('z')" class="btn btn-default drum-pad">
                                     <audio id="z">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3" type="audio/mp3">
                                     </audio>
                                     Z</a>
-                                <a href="#" onclick="audioFunction('x')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('x'); displayText('x')" class="btn btn-default drum-pad">
                                     <audio id="x">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3" type="audio/mp3">
                                     </audio>
                                     X</a>
-                                <a href="#" onclick="audioFunction('c')" class="btn btn-default drum-pad">
+                                <a href="#" onclick="audioFunction('c'); displayText('c')" class="btn btn-default drum-pad">
                                     <audio id="c">
                                         <source src="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3" type="audio/mp3">
                                     </audio>
                                     C</a>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <p class="jumbotron" id="text-value">
+                            No Selection
+                        </p>
                     </div>
                     <div class="col-xs-2"></div>
                 </div>
