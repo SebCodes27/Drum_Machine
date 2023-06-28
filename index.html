@@ -6,8 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./index.css"
     </head>
+
     <script>
+
         let instruments = {
             q: 'Heater 1',
             w: 'Heater 2',
@@ -20,9 +23,36 @@
             c: 'Closed-HH'
         };
         
+        let looped = '';
+
+        let array = [];
+
+        function loopOn() {
+            looped = 'true';
+        }
+
+        function loopOff() {
+            looped = 'false';
+            let x = '';
+            for (let i = 0; i < array.length; i++) {
+                x = document.getElementById(array[i])
+                x.loop = false;
+                x.load();
+            }
+            array = [];
+        }
+
         function audioFunction(letter) {
             let x = document.getElementById(letter);
+            if (looped === 'true') {
+                x.loop = true;
+                x.load();
+                if (array.indexOf(letter) === -1) {
+                array = [...array, letter]
+                }
+            }
             x.play();
+            console.log(array)
         };
 
         window.addEventListener("keypress", function(event) {
@@ -42,77 +72,118 @@
             document.getElementById('text-value').innerHTML = instruments[letter];
         }
 
-
-
     </script>
+
     <body>
+
         <main>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div id="drum-machine" class="col-xs-4 bg-primary">
-                        <div id="display" class="container">
-                            <div class="btn-group btn-group-justified btn-group-lg">
-                                <a id="q-btn" href="#" onclick="audioFunction('q'); displayText('q')" class="btn btn-default drum-pad">
-                                    <audio id="q">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" type="audio/mp3">
-                                    </audio>
-                                    Q</a>
-                                <a href="#" onclick="audioFunction('w'); displayText('w')" class="btn btn-default drum-pad">
-                                    <audio id="w">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3" type="audio/mp3">
-                                    </audio>
-                                    W</a>
-                                <a href="#" onclick="audioFunction('e'); displayText('e')" class="btn btn-default drum-pad">
-                                    <audio id="e">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3" type="audio/mp3">
-                                    </audio>
-                                    E</a>
-                            </div>
-                            <div class="btn-group btn-group-justified btn-group-lg">
-                                <a href="#" onclick="audioFunction('a'); displayText('a')" class="btn btn-default drum-pad">
-                                    <audio id="a">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" type="audio/mp3">
-                                    </audio>
-                                    A</a>
-                                <a href="#" onclick="audioFunction('s'); displayText('s')" class="btn btn-default drum-pad">
-                                    <audio id="s">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3" type="audio/mp3">
-                                    </audio>
-                                    S</a>
-                                <a href="#" onclick="audioFunction('d'); displayText('d')" class="btn btn-default drum-pad">
-                                    <audio id="d">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" type="audio/mp3">
-                                    </audio>
-                                    D</a>
-                            </div>
-                            <div class="btn-group btn-group-justified btn-group-lg">
-                                <a href="#" onclick="audioFunction('z'); displayText('z')" class="btn btn-default drum-pad">
-                                    <audio id="z">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3" type="audio/mp3">
-                                    </audio>
-                                    Z</a>
-                                <a href="#" onclick="audioFunction('x'); displayText('x')" class="btn btn-default drum-pad">
-                                    <audio id="x">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3" type="audio/mp3">
-                                    </audio>
-                                    X</a>
-                                <a href="#" onclick="audioFunction('c'); displayText('c')" class="btn btn-default drum-pad">
-                                    <audio id="c">
-                                        <source src="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3" type="audio/mp3">
-                                    </audio>
-                                    C</a>
-                            </div>
+
+            <div class="container-fluid outerBox">
+
+                <div class="row innerBox center">
+
+                    <div id="drum-machine" class="col-xs-6 bg-primary">
+
+                        <div class="center-sm">
+
+                        <div class="btn-group btn-group-lg full-width">
+                            
+                            <a id="q-btn" href="#" onclick="audioFunction('q'); displayText('q')" class="btn btn-default drum-pad button-width">
+                                <audio id="q">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" type="audio/mp3">
+                                </audio>
+                                Q</a>
+                            <a href="#" onclick="audioFunction('w'); displayText('w')" class="btn btn-default drum-pad button-width">
+                                <audio id="w">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3" type="audio/mp3">
+                                </audio>
+                                W</a>
+                            <a href="#" onclick="audioFunction('e'); displayText('e')" class="btn btn-default drum-pad button-width">
+                                <audio id="e">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3" type="audio/mp3">
+                                </audio>
+                                E</a>
+
                         </div>
+
+                        <div class="btn-group btn-group-lg full-width">
+
+                            <a href="#" onclick="audioFunction('a'); displayText('a')" class="btn btn-default drum-pad button-width">
+                                <audio id="a">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" type="audio/mp3">
+                                </audio>
+                                A</a>
+                            <a href="#" onclick="audioFunction('s'); displayText('s')" class="btn btn-default drum-pad button-width">
+                                <audio id="s">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3" type="audio/mp3">
+                                </audio>
+                                S</a>
+                            <a href="#" onclick="audioFunction('d'); displayText('d')" class="btn btn-default drum-pad button-width">
+                                <audio id="d">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" type="audio/mp3">
+                                </audio>
+                                D</a>
+
+                        </div>
+
+                        <div class="btn-group btn-group-lg full-width">
+
+                            <a href="#" onclick="audioFunction('z'); displayText('z')" class="btn btn-default drum-pad button-width">
+                                <audio id="z">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3" type="audio/mp3">
+                                </audio>
+                                Z</a>
+                            <a href="#" onclick="audioFunction('x'); displayText('x')" class="btn btn-default drum-pad button-width">
+                                <audio id="x">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3" type="audio/mp3">
+                                </audio>
+                                X</a>
+                            <a href="#" onclick="audioFunction('c'); displayText('c')" class="btn btn-default drum-pad button-width">
+                                <audio id="c">
+                                    <source src="https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3" type="audio/mp3">
+                                </audio>
+                                C</a>
+
+                        </div>
+
                     </div>
-                    <div class="col-xs-2">
-                        <p class="jumbotron" id="text-value">
-                            No Selection
-                        </p>
+
                     </div>
-                    <div class="col-xs-2"></div>
+
+                    <div id="display" class="col-xs-6">
+
+                        <div class="top-half">
+
+                            <h2 class="text-center text-info top-padding" id="text-value">
+                                Press a Key!
+                            </h2>
+
+                        </div>
+
+                        <div class="bot-half">
+
+                            <div class="center-bh">
+
+                            <button onclick="loopOn()" type="button" class="btn-primary">
+                                Loop
+                            </button>
+
+                            <button onclick="loopOff()" type="button" class="btn-primary">
+                                Loop Off
+                            </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </main>
+
     </body>
+
 </html>
